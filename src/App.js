@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import { Route } from 'react-router-dom';
 import data from './data';
 //ContextAPI
@@ -13,13 +13,23 @@ function App() {
 	const [products] = useState(data);
 	const [cart, setCart] = useState([]);
 
-	const addItem = () => {
-		 setCart(products);
+	
+
+	const addItem = (item) => {
+		 setCart(cart => [...cart, item]);
 	};
 
+	const removeItem = itemId => {
+		setCart(cart.filter(cartItem => cartItem.id !== itemId));
+	}
+	
+	
+
+	
+	
 	return (
 		<ProductContext.Provider value={{ products, addItem }}>
-			<CartContext.Provider value= {cart}>
+			<CartContext.Provider value={{cart, removeItem, setCart}}>
 		<div className="App">
 			<Navigation/>
 
